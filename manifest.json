@@ -11,7 +11,7 @@
     "https://appsumo.com/*"
   ],
   "background": {
-    "service_worker": "src/installTabContentInjector.js"
+    "service_worker": "installTabContentInjector.js"
   },
   "action": {
     "default_title": "Price Changer",

@@ -1,5 +1,7 @@
 import * as storage from './settingsSyncManager.js';
 
+document.addEventListener('DOMContentLoaded', optionsInit);
+
 async function optionsInit() {
   const settings = await storage.getSettings();
   for (const [key, value] of Object.entries(settings)) {
@@ -69,4 +71,3 @@ async function handleSave(event) {
     }, 2000);
   }
 }
-})();

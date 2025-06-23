@@ -15,7 +15,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   ) {
     chrome.scripting.executeScript({
       target: { tabId },
-      files: ['src/content.js']
+      files: ['currencyMultiplierTextManager.js']
     }).catch((error) => {
       console.error('Failed to inject content script into tab', tabId, error);
     });
