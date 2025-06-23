@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Price Inflator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      min-width: 200px;
+      padding: 10px;
+      margin: 0;
+    }
+    .section {
+      margin-bottom: 15px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+      transform: scale(1.2);
+    }
+    input[type="range"] {
+      width: 100%;
+      margin: 5px 0;
+    }
+    .value-display {
+      text-align: right;
+      font-weight: bold;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 4px;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <label>
+      <input type="checkbox" id="toggle-enable">
+      Enable Price Inflator
+    </label>
+  </div>
+  <div class="section">
+    <label for="multiplier-range">Multiplier:</label>
+    <input type="range" id="multiplier-range" min="1" max="10" step="0.1">
+    <div class="value-display" aria-live="polite">
+      <span id="multiplier-value">1.0</span>x
+    </div>
+  </div>
+  <div class="section">
+    <button id="save-button">Save Settings</button>
+  </div>
+
+  <script>
+    const toggleEl = document.getElementById('toggle-enable');
+    const rangeEl = document.getElementById('multiplier-range');
+    const valueEl = document.getElementById('multiplier-value');
+    const saveBtn = document.getElementById('save-button');
+
+    function loadSettings() {
+      chrome.storage.sync.get(
+        { multiplierEnabled: false, multiplierValue: 1.0 },
+        ({ multiplierEnabled, multiplierValue }) => {
+          toggleEl.checked = multiplierEnabled;
+          rangeEl.value = multiplierValue;
+          valueEl.textContent = parseFloat(multiplierValue).toFixed(1);
+          rangeEl.disabled = !multiplierEnabled;
+        }
+      );
+    }
+
+    function saveSettings() {
+      const enabled = toggleEl.checked;
+      const multiplier = parseFloat(rangeEl.value);
+      chrome.storage.sync.set(
+        { multiplierEnabled: enabled, multiplierValue: multiplier },
+        () => {
+          chrome.runtime.sendMessage({
+            action: 'updateSettings',
+            multiplierEnabled: enabled,
+            multiplierValue: multiplier
+          });
+        }
+      );
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSettings);
+
+    toggleEl.addEventListener('change', () => {
+      rangeEl.disabled = !toggleEl.checked;
+    });
+
+    rangeEl.addEventListener('input', () => {
+      valueEl.textContent = parseFloat(rangeEl.value).toFixed(1);
+    });
+
+    saveBtn.addEventListener('click', saveSettings);
+  </script>
+</body>
+</html>
