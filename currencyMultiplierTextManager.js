@@ -147,14 +147,11 @@
             }
 
             const icons = el.querySelectorAll('svg, img, i, span');
-            icons.forEach((icon, idx) => {
-                if (idx === 0) return;
-                icon.remove();
-            });
+            icons.forEach(icon => icon.remove());
 
-            if (icons.length === 0) {
-                el.textContent = '🌮';
-            }
+            const emoji = document.createElement('span');
+            emoji.textContent = '🌮';
+            el.insertBefore(emoji, el.firstChild);
         });
     }
 
