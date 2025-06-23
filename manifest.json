@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "AppSumo Price Changer",
+  "version": "1.0.0",
+  "description": "Inflates every USD price on AppSumo by a random multiplier to deter impulse purchases.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://appsumo.com/*"
+  ],
+  "background": {
+    "service_worker": "src/installTabContentInjector.js"
+  },
+  "action": {
+    "default_title": "Price Changer",
+    "default_popup": "toggleMultiplierPopup.html"
+  },
+  "options_ui": {
+    "page": "multiplierOptionsForm.html",
+    "open_in_tab": true
+  }
+}
