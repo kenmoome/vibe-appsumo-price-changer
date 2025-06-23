@@ -127,7 +127,7 @@ popup/
 ?? popupstyles.css                 ? Responsive popup styling  
 options/  
 ?? optionsui.html                  ? Full options page markup  
-?? optionslogic.js                 ? Options page controller  
+?? optionsFormController.js       ? Options page controller
 ?? optionsstyles.css               ? Options page styling  
 icons/  
 ?? 16.png, 32.png, 48.png, 128.png ? *(to be added)*  
@@ -161,7 +161,7 @@ icons/
 - **popup.html / popuplogic.js / popupstyles.css**  
   Quick access UI for toggling the extension and adjusting multiplier range. Syncs with storage and updates badge.
 
-- **optionsui.html / optionslogic.js / optionsstyles.css**  
+- **optionsui.html / optionsFormController.js / optionsstyles.css**
   Full standalone options page with form controls, descriptions, tooltips, and ?Reset to Defaults? button.
 
 ---
